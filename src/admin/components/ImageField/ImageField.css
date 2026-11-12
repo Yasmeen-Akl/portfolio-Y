@@ -66,3 +66,13 @@
   opacity: .6;
   cursor: progress;
 }
+
+.image-status {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.image-status:empty {
+  display: none;
+}

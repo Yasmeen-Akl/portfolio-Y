@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useContent } from '../../data/useContent.js';
 import { isConnected, messagesApi, NOT_CONNECTED } from '../../data/api.js';
+import { emailEnabled, sendEmailNotification } from '../../data/notify.js';
 import { cx } from '../../lib/cx.js';
 import { magnetic } from '../../lib/magnetic.js';
 import { withAccent } from '../../lib/richText.jsx';
@@ -28,6 +29,7 @@ export default function Contact() {
   const [status, setStatus] = useState('idle'); // idle | sending | sent
   const [failure, setFailure] = useState('');
   const resetTimer = useRef();
+  const honeypot = useRef(null);
 
   useEffect(() => () => clearTimeout(resetTimer.current), []);
 
@@ -46,23 +48,34 @@ export default function Contact() {
     setErrors(found);
     setFailure('');
     if (Object.keys(found).length) return;
-    if (!isConnected) {
+    // A bot filled the hidden field: pretend it worked, send nothing.
+    const bot = honeypot.current?.checked;
+    if (!bot && !isConnected && !emailEnabled) {
       setFailure(`Couldn’t send your message — ${NOT_CONNECTED}.`);
       return;
     }
 
-    // Same choreography as the original: the plane flies off, the label flips after 900ms.
-    setStatus('sending');
-    const [result] = await Promise.all([
-      messagesApi.insert({
+    // Save to the dashboard inbox first, then send the email notification.
+    // Either one getting through counts as delivered.
+    const deliver = async () => {
+      if (bot) return true;
+      const message = {
         name: form.name.trim(),
         email: form.email.trim(),
         topic: contactTopics[topic]?.label || '',
         body: form.body.trim(),
-      }),
-      wait(900),
-    ]);
-    if (result.error) {
+      };
+      const saved = await messagesApi.insert(message);
+      const mail = await sendEmailNotification(message);
+      if (saved.error && isConnected) console.warn(`[contact] message not saved: ${saved.error}`);
+      if (mail.error) console.warn(`[contact] email notification failed: ${mail.error}`);
+      return !saved.error || mail.sent;
+    };
+
+    // Same choreography as the original: the plane flies off, the label flips after 900ms.
+    setStatus('sending');
+    const [delivered] = await Promise.all([deliver(), wait(900)]);
+    if (!delivered) {
       setStatus('idle');
       setFailure('Couldn’t send your message. Please try again in a moment.');
       return;
@@ -116,6 +129,16 @@ export default function Contact() {
             </div>
           </div>
           <form className="contact-form" noValidate onSubmit={(e) => e.preventDefault()}>
+            {/* Honeypot: invisible to people, tempting to bots. Checked → nothing is sent. */}
+            <input
+              ref={honeypot}
+              className="contact-honeypot"
+              type="checkbox"
+              name="botcheck"
+              tabIndex={-1}
+              aria-hidden="true"
+              autoComplete="off"
+            />
             <div className="topic-pills" role="radiogroup" aria-label="Topic">
               {contactTopics.map((t, i) => (
                 <span

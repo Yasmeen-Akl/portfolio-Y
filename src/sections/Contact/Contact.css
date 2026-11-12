@@ -181,3 +181,17 @@
   font-size: 13px;
   color: var(--danger);
 }
+
+/* Honeypot checkbox: out of the layout (absolute → not a grid row) and invisible. */
+.contact-form .contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  pointer-events: none;
+}

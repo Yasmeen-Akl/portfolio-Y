@@ -79,6 +79,7 @@ export default function ProjectsPage() {
                       tall
                       label={`Phone screen ${i + 1}`}
                       section="projects"
+                      maxSide={1600}
                       value={project.screen_urls?.[i] || ''}
                       onChange={(url) => patch({ screen_urls: withScreen(project.screen_urls, i, url) })}
                     />

@@ -119,22 +119,27 @@ export const messagesApi = {
 
 /* ---------- images ---------- */
 
-export const IMAGE_TYPES = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
-export const IMAGE_MAX_BYTES = 3 * 1024 * 1024;
+// What the bucket stores (images are optimized to WebP, or JPEG as a fallback, before upload).
+const UPLOAD_TYPES = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+const UPLOAD_MAX_BYTES = 10 * 1024 * 1024; // bucket limit; optimized files are far smaller
+
+// What the file picker accepts. Any size: lib/optimizeImage.js shrinks it first.
+// HEIC is allowed through and only works where the browser can decode it.
+const PICKABLE = /^image\/(jpeg|png|webp|hei[cf])$/i;
 
 export function validateImage(file) {
   if (!file) return 'No file selected.';
-  if (!IMAGE_TYPES[file.type]) return 'Use a JPG, PNG or WebP image.';
-  if (file.size > IMAGE_MAX_BYTES) return 'Image is larger than 3 MB.';
+  if (!PICKABLE.test(file.type) && !/\.hei[cf]$/i.test(file.name || '')) return 'Use a JPG, PNG or WebP image.';
   return null;
 }
 
-// Uploads to `{section}/{uuid}.{ext}` and resolves to the public URL.
+// Uploads an (already optimized) image to `{section}/{uuid}.{ext}` and resolves to the public URL.
 export async function uploadImage(section, file) {
-  const invalid = validateImage(file);
-  if (invalid) return fail(invalid);
+  const ext = UPLOAD_TYPES[file?.type];
+  if (!ext) return fail('Use a JPG, PNG or WebP image.');
+  if (file.size > UPLOAD_MAX_BYTES) return fail('Image is still larger than 10 MB after optimizing.');
   if (!supabase) return fail(NOT_CONNECTED);
-  const path = `${section}/${crypto.randomUUID()}.${IMAGE_TYPES[file.type]}`;
+  const path = `${section}/${crypto.randomUUID()}.${ext}`;
   const res = await run((sb) =>
     sb.storage.from(MEDIA_BUCKET).upload(path, file, { contentType: file.type, cacheControl: '31536000' }),
   );

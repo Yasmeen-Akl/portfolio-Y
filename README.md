@@ -25,10 +25,15 @@ Copy `.env.example` to `.env` and fill in:
 ```
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
+VITE_WEB3FORMS_KEY=
 ```
 
-Without them the site still runs: it shows the built-in seed content (`src/data/seed.js`),
-the contact form reports that it can't send, and the dashboard opens as a read-only preview.
+Without the Supabase values the site still runs: it shows the built-in seed content
+(`src/data/seed.js`) and the dashboard opens as a read-only preview.
+
+`VITE_WEB3FORMS_KEY` is optional. With a [Web3Forms](https://web3forms.com) access key, every
+contact-form message is also emailed to you (reply goes straight to the visitor). Without it the
+email step is skipped and messages are only saved to the dashboard inbox.
 
 ## Dashboard
 

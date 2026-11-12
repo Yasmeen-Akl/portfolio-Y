@@ -19,6 +19,7 @@ In the dashboard open **SQL Editor → New query**, then paste and **Run** each 
 
 1. `supabase/migrations/20261112000000_init.sql`
 2. `supabase/migrations/20261112000100_storage.sql`
+3. `supabase/migrations/20261112000200_storage_limit.sql`
 
 ### Option B — Supabase CLI
 
@@ -91,7 +92,7 @@ For Vercel, add the same two variables under **Project → Settings → Environm
 | `stats`, `education`, `journey`, `skill_lanes`, `service_groups`, `services`, `projects`, `contact_topics` | Editable lists, ordered by `sort_order` |
 | `messages` | Contact-form inbox |
 | `admins` + `public.is_admin()` | Who may edit |
-| bucket `portfolio-media` | Public images (JPG/PNG/WebP, max 3 MB), stored as `{section}/{uuid}.{ext}` |
+| bucket `portfolio-media` | Public images (JPG/PNG/WebP, max 10 MB; the dashboard compresses images before upload), stored as `{section}/{uuid}.{ext}` |
 
 Row Level Security is on for every table:
 
