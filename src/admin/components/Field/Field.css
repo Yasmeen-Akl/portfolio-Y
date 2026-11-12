@@ -1,0 +1,114 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--soft);
+}
+
+.field-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 500 14px/1.5 var(--sans);
+  transition: border-color .2s, box-shadow .2s;
+}
+
+textarea.field-input {
+  resize: vertical;
+  min-height: 44px;
+}
+
+.field-input:focus {
+  outline: 0;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.field-hint {
+  font-size: 12px;
+  color: var(--soft);
+}
+
+.field-error {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--danger);
+}
+
+.field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+/* Side by side when there is room, stacked when there isn't. */
+.field-row > * {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.field-row > .toggle {
+  flex: 0 1 auto;
+}
+
+/* Toggle switch (a real checkbox underneath) */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.toggle-track {
+  position: relative;
+  flex: none;
+  width: 38px;
+  height: 22px;
+  border-radius: 99px;
+  background: var(--line);
+  transition: background .2s;
+}
+
+.toggle-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--card);
+  transition: transform .2s;
+}
+
+.toggle input:checked + .toggle-track {
+  background: var(--accent);
+}
+
+.toggle input:checked + .toggle-track::after {
+  transform: translateX(16px);
+}
+
+.toggle input:focus-visible + .toggle-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

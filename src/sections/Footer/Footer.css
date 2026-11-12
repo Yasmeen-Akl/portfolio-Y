@@ -1,0 +1,20 @@
+.footer-wordmark {
+  font: italic clamp(64px,17vw,190px)/1 var(--serif);
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent);
+  margin-bottom: 26px;
+  transition: color .6s;
+  cursor: default;
+  user-select: none;
+}
+
+.footer-wordmark:hover {
+  color: var(--blue);
+}
+
+footer {
+  text-align: center;
+  padding: 50px 0;
+  font-size: 12px;
+  color: var(--soft);
+}

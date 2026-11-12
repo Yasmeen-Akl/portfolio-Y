@@ -1,0 +1,27 @@
+# dependencies / build
+node_modules
+dist
+
+# env (only the example is committed)
+.env
+.env.*
+!.env.example
+
+# Supabase CLI
+supabase/.temp
+supabase/.branches
+
+# editor / OS
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+*.log
+
+# test / screenshot output
+visual-diff
+test-results
+playwright-report
+blob-report
+playwright/.cache
+
+.vercel

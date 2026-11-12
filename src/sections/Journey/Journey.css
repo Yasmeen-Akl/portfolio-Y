@@ -1,0 +1,205 @@
+.now-tag i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2ecc71;
+  animation: pl 1.6s infinite;
+}
+
+.frame-sticker {
+  position: absolute;
+  top: -13px;
+  right: 18px;
+  background: var(--blue);
+  color: #0d2a40;
+  font: 700 11px var(--sans);
+  padding: 6px 13px;
+  border-radius: 99px;
+  transform: rotate(6deg);
+  box-shadow: 0 8px 16px -8px #0006;
+  animation: float 4s ease-in-out infinite;
+  z-index: 2;
+}
+
+.now-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 700 11px var(--sans);
+  color: var(--accent);
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+.journey-canvas {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px 100px;
+  padding: 56px 36px 64px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background-color: var(--tint);
+  background-image: radial-gradient(var(--line) 1.3px,transparent 1.3px);
+  background-size: 22px 22px;
+}
+
+.journey-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.wire {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.wire.is-on {
+  opacity: 1;
+}
+
+.wire path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 7 7;
+  animation: flow 1s linear infinite;
+}
+
+.wire .wire-node {
+  fill: var(--bg);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.frame {
+  position: relative;
+}
+
+.frame.frame-offset {
+  margin-top: 80px;
+}
+
+.js .frame {
+  opacity: 0;
+  transform: translateY(30px) scale(.94);
+  transition: opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.js .frame.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.frame-label {
+  position: absolute;
+  top: -24px;
+  left: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: .04em;
+}
+
+.frame-body {
+  position: relative;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 26px 24px 22px;
+  border: 1px solid var(--line);
+  transition: transform .4s,box-shadow .4s,outline-color .3s;
+  outline: 2px solid transparent;
+  outline-offset: 0;
+}
+
+.frame.is-selected .frame-body {
+  outline-color: var(--accent);
+  box-shadow: 0 26px 40px -30px var(--accent);
+  transform: translateY(-4px);
+}
+
+.frame-handle {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #fff;
+  border: 1.5px solid var(--accent);
+  opacity: 0;
+  transition: opacity .3s;
+  z-index: 3;
+}
+
+.frame.is-selected .frame-handle {
+  opacity: 1;
+}
+
+.frame-dim {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  font: 600 10px var(--sans);
+  padding: 3px 9px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity .3s;
+  white-space: nowrap;
+}
+
+.frame.is-selected .frame-dim {
+  opacity: 1;
+}
+
+.frame-period {
+  font: italic 44px/1 var(--serif);
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.frame-body h3 {
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.frame-body small {
+  display: block;
+  color: var(--soft);
+  margin: 4px 0 10px;
+}
+
+.journey-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 6;
+  pointer-events: none;
+  transition: transform 1.2s cubic-bezier(.6,0,.2,1);
+}
+
+.journey-cursor span {
+  position: absolute;
+  left: 14px;
+  top: 18px;
+  background: var(--accent);
+  color: #fff;
+  font: 600 11px var(--sans);
+  padding: 3px 10px;
+  border-radius: 0 10px 10px 10px;
+}
+
+@media (max-width:800px) {
+  .journey-canvas {
+    grid-template-columns: 1fr;
+    padding: 48px 16px 56px;
+    gap: 56px;
+  }
+  .frame.frame-offset {
+    margin-top: 0;
+  }
+}

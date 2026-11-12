@@ -1,0 +1,112 @@
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 14px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform .35s,border-color .35s;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.stat-card svg {
+  width: 54px;
+  height: 54px;
+  flex: none;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.stat-card b {
+  display: block;
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.stat-card small {
+  color: var(--soft);
+  font-size: 11px;
+}
+
+.icon-bob {
+  animation: bob 3.4s ease-in-out infinite;
+}
+
+.icon-bob-late {
+  animation-delay: .6s;
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+.ring-arc {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+.reveal.is-in .ring-arc {
+  animation: fillr 1.8s ease forwards;
+}
+
+@keyframes fillr {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.icon-swatches circle {
+  animation: pop 2.4s ease-in-out infinite;
+  animation-delay: var(--d,0s);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes pop {
+  50% {
+    transform: scale(.7);
+    fill: var(--blue);
+  }
+}
+
+.icon-network path {
+  stroke-dasharray: 4 4;
+  animation: flow 1s linear infinite;
+}
+
+.icon-network circle {
+  fill: var(--bg);
+}
+
+.icon-network .network-core {
+  fill: var(--accent);
+  animation: pop 2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (max-width:800px) {
+  .stats-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stat-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

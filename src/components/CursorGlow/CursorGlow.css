@@ -1,0 +1,13 @@
+#glow {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle,var(--blue),transparent 65%);
+  opacity: .5;
+  pointer-events: none;
+  z-index: -1;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 30%;
+}

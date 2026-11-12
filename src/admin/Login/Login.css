@@ -1,0 +1,49 @@
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 40px);
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(100%, 420px);
+  padding: clamp(24px, 5vw, 40px);
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: 0 34px 50px -34px var(--accent);
+}
+
+.login-brand {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--soft);
+}
+
+.login-brand em {
+  font-size: 22px;
+  margin-right: 4px;
+}
+
+.login-title {
+  font-size: clamp(28px, 5vw, 36px);
+}
+
+.login-card .btn {
+  text-align: center;
+}
+
+.login-back {
+  font-size: 13px;
+  color: var(--soft);
+  text-decoration: none;
+  align-self: center;
+}
+
+.login-back:hover {
+  color: var(--accent);
+}

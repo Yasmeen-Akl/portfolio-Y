@@ -1,0 +1,21 @@
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tag-list span {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  transition: .3s;
+}
+
+.tag-list span:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-3px);
+}

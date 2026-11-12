@@ -1,0 +1,16 @@
+.nested-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+
+.nested-list-title {
+  font-size: 13px;
+  color: var(--soft);
+}
+
+.nested-list .list-row {
+  background: var(--card);
+}

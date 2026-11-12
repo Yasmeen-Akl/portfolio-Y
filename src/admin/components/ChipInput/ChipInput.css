@@ -1,0 +1,88 @@
+.chip-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--tint);
+  overflow: hidden;
+}
+
+.chip.is-editing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.chip-text,
+.chip-btn {
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: 500 13px/1.5 var(--sans);
+  cursor: pointer;
+}
+
+.chip-text {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 4px 6px 14px;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.chip-btn {
+  flex: none;
+  align-self: stretch;
+  padding: 0 10px;
+  color: var(--soft);
+}
+
+.chip-btn:hover {
+  background: var(--accent);
+  color: var(--card);
+}
+
+.chip-btn[aria-disabled="true"] {
+  opacity: .35;
+  cursor: default;
+}
+
+.chip-entry {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.chip-entry .field-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Long entries (paragraphs): full-width blocks */
+.chip-input.is-multiline .chips {
+  flex-direction: column;
+}
+
+.chip-input.is-multiline .chip {
+  align-items: stretch;
+  border-radius: 14px;
+}
+
+.chip-input.is-multiline .chip-text {
+  padding: 10px 6px 10px 14px;
+}

@@ -1,0 +1,37 @@
+nav {
+  position: fixed;
+  top: calc(14px + env(safe-area-inset-top,0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb,var(--card) 75%,transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  transition: .4s;
+}
+
+nav a {
+  font-size: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: .3s;
+}
+
+nav a:hover,
+nav a.is-active {
+  background: var(--blue);
+  color: #0d2a40;
+}
+
+@media (max-width:800px) {
+  nav {
+    max-width: 94vw;
+    overflow-x: auto;
+  }
+}
